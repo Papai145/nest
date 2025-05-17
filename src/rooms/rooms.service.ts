@@ -1,8 +1,9 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Rooms, RoomsDocument, RoomType } from './models/rooms.models';
+import { Rooms, RoomsDocument } from './models/rooms.models';
 import { Model } from 'mongoose';
 import { CreateRoomDto } from './dto/create-room.dto';
+import { RoomType } from 'src/common/enums/room-type';
 
 @Injectable()
 export class RoomsService {
@@ -20,6 +21,10 @@ export class RoomsService {
     const skip = (page - 1) * limit;
     const data = await this.RoomsModel.find().skip(skip).limit(limit).exec();
     const total = await this.RoomsModel.countDocuments().exec();
+    // return { data, total };
+    if (data.length === 0) {
+      return { data: [], total: 0 };
+    }
     return { data, total };
   }
   async updateRoomType(id: string, roomType: RoomType): Promise<RoomsDocument> {

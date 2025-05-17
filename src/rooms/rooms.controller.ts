@@ -15,6 +15,7 @@ import { RoomsService } from './rooms.service';
 import { CreateRoomDto } from './dto/create-room.dto';
 import { RoomsDocument } from './models/rooms.models';
 import { UpdateTypeRoomDto } from './dto/update-room.dto';
+import { ReadRoomDto } from './dto/read-room';
 
 @Controller('rooms')
 export class RoomsController {
@@ -34,10 +35,7 @@ export class RoomsController {
     return result;
   }
   @Get('read')
-  async readRooms(
-    @Query('page') page: number = 1,
-    @Query('limit') limit: number = 10,
-  ): Promise<{
+  async readRooms(@Query() { page, limit }: ReadRoomDto): Promise<{
     data: RoomsDocument[];
     total: number;
     page: number;
@@ -45,16 +43,6 @@ export class RoomsController {
   }> {
     try {
       const result = await this.roomsService.getRooms(page, limit);
-
-      if (!result || result.data.length === 0) {
-        // Возвращаем объект с пустым массивом data
-        return {
-          data: [],
-          total: 0,
-          page,
-          limit,
-        };
-      }
 
       const { data, total } = result;
       return {

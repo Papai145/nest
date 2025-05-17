@@ -1,14 +1,8 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { HydratedDocument } from 'mongoose';
+import { RoomType } from 'src/common/enums/room-type';
 
 export type RoomsDocument = HydratedDocument<Rooms>;
-
-export enum RoomType {
-  Single = 'Single',
-  Double = 'Double',
-  Suite = 'Suite',
-  Apartment = 'Apartment',
-}
 
 @Schema()
 export class Rooms {

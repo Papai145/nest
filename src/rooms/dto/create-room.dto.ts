@@ -1,4 +1,4 @@
-import { RoomType } from '../models/rooms.models';
+import { RoomType } from 'src/common/enums/room-type';
 
 export class CreateRoomDto {
   room: number;
