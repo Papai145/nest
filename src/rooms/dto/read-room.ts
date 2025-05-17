@@ -1,4 +1,4 @@
 export class ReadRoomDto {
-  page: number;
-  limit: number;
+  page: number = 1;
+  limit: number = 10;
 }
