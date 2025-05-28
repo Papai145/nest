@@ -1,6 +1,12 @@
-import { RoomType } from 'src/common/enums/room-type';
+import { Type } from 'class-transformer';
+import { IsEnum, IsNumber } from 'class-validator';
+import { RoomType } from '../../common/enums/room-type';
 
 export class CreateRoomDto {
+  // @IsEmpty()
+  @Type(() => Number)
+  @IsNumber()
   room: number;
+  @IsEnum(RoomType)
   roomType: RoomType;
 }
